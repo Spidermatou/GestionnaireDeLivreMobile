@@ -1,0 +1,24 @@
+[
+    {
+        "id": 2,
+        "title": "The trone de fer",
+        "publication_year": null,
+        "authorId": 2,
+        "author": {
+            "id": 2,
+            "firstname": "George R. R.",
+            "lastname": "Martin"
+        }
+    },
+    {
+        "id": 1,
+        "title": "The witcher",
+        "publication_year": null,
+        "authorId": 1,
+        "author": {
+            "id": 1,
+            "firstname": "Andrzej",
+            "lastname": "Sapkowski"
+        }
+    }
+]
