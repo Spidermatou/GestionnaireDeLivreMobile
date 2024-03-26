@@ -3,12 +3,17 @@ package com.example.abc.Book;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.abc.R;
+
+import org.json.JSONArray;
+import org.json.JSONException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +53,7 @@ public class BookFragment extends Fragment {
         return fragment;
     }
 
+    private RecyclerView recyclerView;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,12 +61,32 @@ public class BookFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_book, container, false);
+        View view = inflater.inflate(R.layout.fragment_book, container, false);
+
+        recyclerView = view.findViewById(R.id.recyclerViewBook);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        try {
+            BookViewModel bookViewModel = new BookViewModel(getContext());
+            bookViewModel.getBook().observe(getViewLifecycleOwner(), (JSONArray book) -> {
+                BookAdapter bookAdapter = new BookAdapter(book);
+                recyclerView.setAdapter(bookAdapter);
+            });
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        return view;
     }
 }
