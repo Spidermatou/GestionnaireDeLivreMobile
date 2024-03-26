@@ -11,6 +11,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -31,17 +32,23 @@ public class AuthorsViewModel extends AndroidViewModel {
             new MutableLiveData<>(new JSONArray());
 
 
-    // V1 en dur
+    // V1.0 en dur
     private void loadData(Context context) throws IOException, JSONException {
         InputStream inputStream = context.getResources().openRawResource(R.raw.rawauthors);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-        StringBuilder sb = new StringBuilder();
+
+        // get entire text
         String line;
-        while((line = reader.readLine()) != null ) {
-            sb.append( line );
-            sb.append( '\n' );
+        StringBuilder stringBuilder = new StringBuilder();
+        while ( (line =  reader.readLine()) != null  ){
+            stringBuilder.append(line);
         }
-        authors.setValue(new JSONArray(sb.toString()));
+
+        // parse to json
+        JSONArray data = new JSONArray(stringBuilder.toString());
+
+        System.out.println(data); // test
+        authors.setValue(data);
     }
 
 }
