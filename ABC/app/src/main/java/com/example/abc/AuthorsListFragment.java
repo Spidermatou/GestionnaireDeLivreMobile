@@ -3,6 +3,7 @@ package com.example.abc;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -43,7 +44,7 @@ public class AuthorsListFragment extends Fragment implements HasClickableItem {
     }
 
     @Override
-    public void onClick(int index) { // TODO - is just a test yet
+    public void onClick(int index) { // TODO - is   just a test yet
         Toast toast = Toast.makeText(getActivity(),"CLICKED",Toast.LENGTH_SHORT);
         toast.show();
     }

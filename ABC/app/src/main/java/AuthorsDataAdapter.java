@@ -1,3 +1,4 @@
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -5,6 +6,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.abc.AuthorViewHolder;
 import com.example.abc.R;
 
 import org.json.JSONArray;
@@ -15,6 +17,7 @@ import org.json.JSONException;
  */
 public class AuthorsDataAdapter extends RecyclerView.Adapter {
     private final JSONArray authorsData;
+    private Context appContext;
 
     public AuthorsDataAdapter(JSONArray array){
         super();
@@ -25,40 +28,31 @@ public class AuthorsDataAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         // Create a new view, which defines the UI of the list item
-        /* View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.pokemon_view_holder, parent, false); */
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.view_holder_author, parent, false);
 
-        // appContext = parent.getContext();
-        // return new AuthorsViewHolder(view);
-        return null;
+        appContext = parent.getContext();
+
+        return new AuthorViewHolder(view);
     }
 
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-       /* if (holder instanceof PokemonViewHolder) {
-            PokemonViewHolder pokemonViewHolder = (PokemonViewHolder) holder;
-            String name;
-            String stats;
-            Bitmap icon;
+       if (holder instanceof AuthorViewHolder) {
+           AuthorViewHolder authVH = (AuthorViewHolder) holder;
+
+           String firstname;
+           String lastname;
             try {
                 // retrieve name
-                name = "#" + (position + 1) + " " + authorsData.getJSONObject(position).getJSONObject("name").getString("english");
-
-                // retrieve and format stats
-                stats = "<b> HP: </b>" + authorsData.getJSONObject(position).getJSONObject("base").getString("HP") + "<br>" +
-                        "<b> Attack: </b>" + authorsData.getJSONObject(position).getJSONObject("base").getString("Attack") + "<br>" +
-                        "<b> Defense: </b>" + authorsData.getJSONObject(position).getJSONObject("base").getString("Defense") + "<br>" +
-                        "<b> Sp. Attack: </b>" + authorsData.getJSONObject(position).getJSONObject("base").getString("Sp. Attack") + "<br>" +
-                        "<b> Sp. Defense: </b>" + authorsData.getJSONObject(position).getJSONObject("base").getString("Sp. Defense") + "<br>";
-
-
+                lastname = authorsData.getJSONObject(position).getString("lastname");
+                firstname = authorsData.getJSONObject(position).getString("firstname");
+                authVH.getauthorName().setText(lastname + " " + firstname);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-            pokemonViewHolder.getPokemonName().setText(name);
-            pokemonViewHolder.getPokemonStats().setText(Html.fromHtml(stats, 0));
-        } */
+        }
     }
 
     @Override
