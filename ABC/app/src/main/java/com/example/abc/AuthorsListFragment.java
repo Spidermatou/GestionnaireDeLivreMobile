@@ -15,7 +15,7 @@ import android.widget.Toast;
  * Use the {@link AuthorsListFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AuthorsListFragment extends Fragment implements HasClickableItem {
+public class AuthorsListFragment extends Fragment {
 
     public AuthorsListFragment() {
         // Required empty public constructor
@@ -41,11 +41,5 @@ public class AuthorsListFragment extends Fragment implements HasClickableItem {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_authors_list, container, false);
-    }
-
-    @Override
-    public void onClick(int index) { // TODO - is   just a test yet
-        Toast toast = Toast.makeText(getActivity(),"CLICKED",Toast.LENGTH_SHORT);
-        toast.show();
     }
 }
