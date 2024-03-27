@@ -12,7 +12,20 @@ public class BookHolder extends RecyclerView.ViewHolder {
     public BookHolder(View itemView) {
         super(itemView);
         book = (TextView) itemView.findViewById(R.id.textViewBook);
+
+        book.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Supprimer la ligne associée à cet élément de la liste
+                /*int position = getAdapterPosition();
+                if (position != RecyclerView.NO_POSITION && listener != null) {
+                    listener.onDeleteClick(position);
+                }*/
+            }
+        });
     }
+
+
 
     public TextView getTextViewBook() {
         return book;

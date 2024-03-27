@@ -34,7 +34,11 @@ public class BookAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //try {
 
-            ((BookHolder) holder).getTextViewBook().setText("BookTest");
+        try {
+            ((BookHolder) holder).getTextViewBook().setText(BookDataSet.getJSONObject(position).getString("title"));
+        } catch (JSONException e) {
+            throw new RuntimeException(e);
+        }
         //} catch (JSONException e) {
           //  e.printStackTrace();
         //}
@@ -42,6 +46,6 @@ public class BookAdapter extends RecyclerView.Adapter{
 
     @Override
     public int getItemCount() {
-        return 0;
+        return BookDataSet.length();
     }
 }

@@ -38,6 +38,12 @@ public class BookViewModel extends AndroidViewModel {
     public BookViewModel(Context context) throws Exception {
         super((Application) context.getApplicationContext());
         book = new MutableLiveData<>();
-        loadData(context);
+        try {
+            loadData(context);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Gérer l'exception ici, par exemple, en affichant un message d'erreur ou en initiant book avec un JSONArray vide
+            book.setValue(new JSONArray());
+        }
     }
 }
