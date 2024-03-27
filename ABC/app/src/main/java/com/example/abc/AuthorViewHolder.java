@@ -13,10 +13,15 @@ public class AuthorViewHolder extends RecyclerView.ViewHolder {
     public AuthorViewHolder(@NonNull View itemView) {
         super(itemView);
         authorName = (TextView) itemView.findViewById(R.id.authorName);
+
+        authorName.setOnClickListener(e -> {}); // TODO
     }
 
     public TextView getauthorName() {
         return authorName;
     }
+
+
+
 
 }
