@@ -1,4 +1,4 @@
-package com.example.abc;
+package com.example.abc.Author;
 
 import android.app.Application;
 import android.content.Context;
@@ -6,6 +6,8 @@ import android.content.Context;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.abc.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,24 +18,29 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
-public class AuthorsViewModel extends AndroidViewModel {
 
-    public AuthorsViewModel(@NonNull Application application) {
-        super(application);
+
+public class AuthorsViewModel extends AndroidViewModel {
+    private MutableLiveData<JSONArray> authors;
+    public AuthorsViewModel(@NonNull Context context) {
+        super((Application) context.getApplicationContext());
+        authors = new MutableLiveData<>(new JSONArray());
         try {
-            loadData(application.getApplicationContext());
+            loadData(context);
         }
         catch (Exception e){
             System.out.println("Error during data loading");
         }
     }
 
-    private final MutableLiveData<JSONArray> authors =
-            new MutableLiveData<>(new JSONArray());
+    public MutableLiveData<JSONArray> getAuthors() {
+        return authors;
+    }
 
 
     // V1.0 en dur
     private void loadData(Context context) throws IOException, JSONException {
+
         InputStream inputStream = context.getResources().openRawResource(R.raw.rawauthors);
         BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 

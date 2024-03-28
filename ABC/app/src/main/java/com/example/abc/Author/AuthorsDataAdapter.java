@@ -1,12 +1,15 @@
+package com.example.abc.Author;
+
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.abc.AuthorViewHolder;
+import com.example.abc.Author.AuthorViewHolder;
 import com.example.abc.R;
 
 import org.json.JSONArray;
@@ -16,12 +19,14 @@ import org.json.JSONException;
  * Connait le view holder et modifie ses elements graphiques
  */
 public class AuthorsDataAdapter extends RecyclerView.Adapter {
-    private final JSONArray authorsData;
+    private  JSONArray authorsData;
     private Context appContext;
+    private FragmentManager fragmentManager;
 
-    public AuthorsDataAdapter(JSONArray array){
+    public AuthorsDataAdapter(JSONArray array, FragmentManager fragmentManager){
         super();
         authorsData = array;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -33,7 +38,7 @@ public class AuthorsDataAdapter extends RecyclerView.Adapter {
 
         appContext = parent.getContext();
 
-        return new AuthorViewHolder(view);
+        return new AuthorViewHolder(view, fragmentManager);
     }
 
 
@@ -58,5 +63,9 @@ public class AuthorsDataAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemCount() {
         return authorsData.length();
+    }
+
+    public JSONArray getBookDataSet() {
+        return authorsData;
     }
 }
