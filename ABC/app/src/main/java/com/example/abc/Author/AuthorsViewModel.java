@@ -24,13 +24,16 @@ public class AuthorsViewModel extends AndroidViewModel {
     private MutableLiveData<JSONArray> authors;
     public AuthorsViewModel(@NonNull Context context) {
         super((Application) context.getApplicationContext());
-        authors = new MutableLiveData<>(new JSONArray());
+        authors = new MutableLiveData<>();
+
         try {
             loadData(context);
         }
         catch (Exception e){
             System.out.println("Error during data loading");
+            authors.setValue(new JSONArray());
         }
+
     }
 
     public MutableLiveData<JSONArray> getAuthors() {

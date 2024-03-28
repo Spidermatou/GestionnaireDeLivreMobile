@@ -1,5 +1,6 @@
 package com.example.abc.Author;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import org.json.JSONException;
  */
 public class AuthorsDataAdapter extends RecyclerView.Adapter {
     private  JSONArray authorsData;
+
     private Context appContext;
     private FragmentManager fragmentManager;
 
@@ -42,26 +44,25 @@ public class AuthorsDataAdapter extends RecyclerView.Adapter {
     }
 
 
+    @SuppressLint("SetTextI18n")
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-       if (holder instanceof AuthorViewHolder) {
-           AuthorViewHolder authVH = (AuthorViewHolder) holder;
-
+    public void onBindViewHolder( RecyclerView.ViewHolder holder, int position) {
            String firstname;
            String lastname;
             try {
                 // retrieve name
                 lastname = authorsData.getJSONObject(position).getString("lastname");
                 firstname = authorsData.getJSONObject(position).getString("firstname");
-                authVH.getauthorName().setText(lastname + " " + firstname);
+                ((AuthorViewHolder) holder).getauthorName().setText(lastname + " " + firstname);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
-        }
+
     }
 
     @Override
     public int getItemCount() {
+        System.out.println(authorsData.length());
         return authorsData.length();
     }
 

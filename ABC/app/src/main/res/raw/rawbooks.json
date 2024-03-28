@@ -1,38 +1,41 @@
 [
-    {
-        "id": 2,
-        "title": "Le Trône de fer",
-        "publication_year": null,
-        "authorId": 2,
-        "author": {
-            "id": 2,
-            "firstname": "George R. R.",
-            "lastname": "Martin"
-        },
-        "description": "C'est le trone de fer, un magnifique livre.",
-        "tags": ["Fantasy", "Médiéval", "Politique"],
-        "rating": 4.5,
-        "comments": [
-            {"user": "User1", "comment": "Très bon livre!"},
-            {"user": "User2", "comment": "J'ai adoré ce livre, je recommande!"}
-        ]
+  {
+    "id": 2,
+    "title": "Le Trône de fer",
+    "publication_year": null,
+    "authorId": 2,
+    "author": {
+      "id": 2,
+      "firstname": "George R. R.",
+      "lastname": "Martin"
     },
-    {
-        "id": 1,
-        "title": "The Witcher",
-        "publication_year": null,
-        "authorId": 1,
-        "author": {
-            "id": 1,
-            "firstname": "Andrzej",
-            "lastname": "Sapkowski"
-        },
-        "description": "The Witcher (en polonais : Wiedźmin) est une série de huit romans écrits par Andrzej Sapkowski. Les romans ont été traduits en français par Thibaud Eliroff et publiés par les éditions Bragelonne. Ils constituent la base de la série de jeux vidéo du même nom, développée par le studio polonais CD Projekt.",
-        "tags": ["Fantasy", "Aventure", "Monstres"],
-        "rating": 4.7,
-        "comments": [
-            {"user": "User3", "comment": "Excellent livre, je l'ai dévoré!"},
-            {"user": "User4", "comment": "J'ai été transporté dans cet univers dès les premières pages."}
-        ]
-    }
+    "description": "C'est le trone de fer, un magnifique livre.",
+    "tags": ["Fantasy", "Médiéval", "Politique"],
+    "rating": 4.5,
+    "comments": [
+      { "user": "User1", "comment": "Très bon livre!" },
+      { "user": "User2", "comment": "J'ai adoré ce livre, je recommande!" }
+    ]
+  },
+  {
+    "id": 1,
+    "title": "The Witcher",
+    "publication_year": null,
+    "authorId": 1,
+    "author": {
+      "id": 1,
+      "firstname": "Andrzej",
+      "lastname": "Sapkowski"
+    },
+    "description": "The Witcher (en polonais : Wiedźmin) est une série de huit romans écrits par Andrzej Sapkowski. Les romans ont été traduits en français par Thibaud Eliroff et publiés par les éditions Bragelonne. Ils constituent la base de la série de jeux vidéo du même nom, développée par le studio polonais CD Projekt.",
+    "tags": ["Fantasy", "Aventure", "Monstres"],
+    "rating": 4.7,
+    "comments": [
+      { "user": "User3", "comment": "Excellent livre, je l'ai dévoré!" },
+      {
+        "user": "User4",
+        "comment": "J'ai été transporté dans cet univers dès les premières pages."
+      }
+    ]
+  }
 ]

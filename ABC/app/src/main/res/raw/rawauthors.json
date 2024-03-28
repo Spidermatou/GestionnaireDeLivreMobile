@@ -1,12 +1,27 @@
 [
   {
     "id": 1,
-    "firstname": "George R. R.",
-    "lastname": "Martin"
+    "firstname": "J.K.",
+    "lastname": "Rowling"
   },
   {
     "id": 2,
-    "firstname": "Andrzej",
-    "lastname": "Sapkowski"
+    "firstname": "Stephen",
+    "lastname": "King"
+  },
+  {
+    "id": 3,
+    "firstname": "Tolkien",
+    "lastname": "J.R.R."
+  },
+  {
+    "id": 4,
+    "firstname": "Agatha",
+    "lastname": "Christie"
+  },
+  {
+    "id": 5,
+    "firstname": "Leo",
+    "lastname": "Tolstoy"
   }
 ]
