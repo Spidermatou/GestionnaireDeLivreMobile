@@ -14,12 +14,15 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.abc.Author.AuthorsListFragment;
 import com.example.abc.Book.BookFragment;
+import com.example.abc.Book.CreateBookFragment;
 import com.example.abc.R;
 import com.example.abc.databinding.FragmentDashboardBinding;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
+    private FloatingActionButton fab;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -34,6 +37,17 @@ public class DashboardFragment extends Fragment {
         fragmentTransaction.replace(R.id.fragmentContainerViewAuthor, new AuthorsListFragment());
         fragmentTransaction.commit();
 
+        fab = root.findViewById(R.id.floatingActionButtonAddAuthor);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FragmentManager fragmentManager = getChildFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                fragmentTransaction.replace(R.id.fragmentContainerViewAuthor, new CreateBookFragment());
+                fragmentTransaction.addToBackStack(null);
+                fragmentTransaction.commit();
+            }
+        });
 
         return root;
     }
