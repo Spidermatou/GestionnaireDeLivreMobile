@@ -78,7 +78,7 @@ public class BookFragment extends Fragment {
         try {
             BookViewModel bookViewModel = new BookViewModel(getContext());
             bookViewModel.getBook().observe(getViewLifecycleOwner(), (JSONArray book) -> {
-                BookAdapter bookAdapter = new BookAdapter(book);
+                BookAdapter bookAdapter = new BookAdapter(book, getParentFragmentManager());
                 recyclerView.setAdapter(bookAdapter);
             });
         } catch (JSONException e) {

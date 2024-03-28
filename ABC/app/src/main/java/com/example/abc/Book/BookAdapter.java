@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.abc.R;
@@ -16,8 +17,10 @@ import org.json.JSONException;
 public class BookAdapter extends RecyclerView.Adapter{
     private JSONArray BookDataSet;
     private Context context;
-    public BookAdapter(JSONArray dataSet) {
+    private FragmentManager fragmentManager;
+    public BookAdapter(JSONArray dataSet, FragmentManager fragmentManager) {
         BookDataSet = dataSet;
+        this.fragmentManager = fragmentManager;
     }
     @NonNull
     @Override
@@ -27,13 +30,12 @@ public class BookAdapter extends RecyclerView.Adapter{
                 .inflate(R.layout.book_view_holder, parent, false);
         context = parent.getContext();
 
-        return new BookHolder(view);
+        return new BookHolder(view, fragmentManager);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         //try {
-
         try {
             ((BookHolder) holder).getTextViewBook().setText(BookDataSet.getJSONObject(position).getString("title"));
         } catch (JSONException e) {
@@ -47,5 +49,9 @@ public class BookAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         return BookDataSet.length();
+    }
+
+    public JSONArray getBookDataSet() {
+        return BookDataSet;
     }
 }
