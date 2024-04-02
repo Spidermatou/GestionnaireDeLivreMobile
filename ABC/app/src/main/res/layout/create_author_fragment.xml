@@ -59,10 +59,19 @@
             android:layout_height="match_parent" >
 
             <Button
+                android:id="@+id/buttonBack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retour"
+                android:textSize="24sp" />
+
+            <Button
                 android:id="@+id/buttonCreateAuthor"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Créer" />
+                android:layout_marginStart="10dp"
+                android:text="Créer"
+                android:textSize="24sp" />
         </TableRow>
 
     </TableLayout>

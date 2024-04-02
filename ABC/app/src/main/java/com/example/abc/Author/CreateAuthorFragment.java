@@ -17,6 +17,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.abc.R;
+import com.example.abc.ui.dashboard.DashboardFragment;
 import com.example.abc.ui.home.HomeFragment;
 
 import java.util.HashMap;
@@ -26,6 +27,7 @@ public class CreateAuthorFragment extends Fragment {
     private EditText textViewFirstName;
     private EditText textViewLastName;
     private Button buttonCreate;
+    private Button back;
 
     public CreateAuthorFragment() {
         // Required empty public constructor
@@ -45,12 +47,22 @@ public class CreateAuthorFragment extends Fragment {
         textViewFirstName = root.findViewById(R.id.editTextFirstName);
         textViewLastName = root.findViewById(R.id.editTextLastName);
         buttonCreate = root.findViewById(R.id.buttonCreateAuthor);
+        back = root.findViewById(R.id.buttonBack);
         buttonCreate.setOnClickListener(v -> {
             // Create a new author
             String firstName = textViewFirstName.getText().toString();
             String lastName = textViewLastName.getText().toString();
             // Create a new author
             CreateAnAuthor(firstName, lastName);
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace( R.id.fragmentContainerViewAuthor, new AuthorsListFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+
+        back.setOnClickListener(v -> {
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 

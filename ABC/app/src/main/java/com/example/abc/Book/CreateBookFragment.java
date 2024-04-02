@@ -41,6 +41,7 @@ public class CreateBookFragment extends Fragment {
     private EditText textViewTitle;
     private Spinner spinner;
     private Button buttonCreate;
+    private Button back;
     private FragmentManager fragmentManager;
     public CreateBookFragment() {
         // Required empty public constructor
@@ -96,6 +97,8 @@ public class CreateBookFragment extends Fragment {
         textViewTitle = root.findViewById(R.id.editTextTitle);
         spinner = root.findViewById(R.id.spinnerAuthors);
         buttonCreate = root.findViewById(R.id.buttonSubmit);
+        back = root.findViewById(R.id.buttonBackBook);
+
 
         buttonCreate.setOnClickListener(v -> {
             // Create a new book
@@ -107,7 +110,16 @@ public class CreateBookFragment extends Fragment {
             FragmentManager fragmentManager = getParentFragmentManager();
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-            fragmentTransaction.replace( R.id.fragmentContainerView, new HomeFragment());
+            fragmentTransaction.replace( R.id.fragmentContainerView, new BookFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+
+        back.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace( R.id.fragmentContainerView, new BookFragment());
             fragmentTransaction.addToBackStack(null);
             fragmentTransaction.commit();
         });

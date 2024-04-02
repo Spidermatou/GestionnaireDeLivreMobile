@@ -2,9 +2,11 @@ package com.example.abc.Book;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +15,14 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.abc.R;
 import com.example.abc.databinding.FragmentHomeBinding;
+import com.example.abc.ui.home.HomeFragment;
 import com.example.abc.ui.home.HomeViewModel;
 
 import org.json.JSONArray;
@@ -33,6 +38,8 @@ public class DescriptionFragment extends Fragment {
     private TextView textViewTags;
     private TextView textViewRating;
     private TextView textViewComments;
+    private Button buttonBackToList;
+    private Button buttonDelete;
 
     public static DescriptionFragment newInstance(String bookInfo) {
         DescriptionFragment fragment = new DescriptionFragment();
@@ -63,6 +70,45 @@ public class DescriptionFragment extends Fragment {
         textViewTags = view.findViewById(R.id.textViewTags);
         textViewRating = view.findViewById(R.id.textViewNote);
         textViewComments = view.findViewById(R.id.textViewComms);
+        buttonBackToList = view.findViewById(R.id.buttonBackToList);
+        buttonDelete = view.findViewById(R.id.buttonDelete);
+
+        buttonBackToList.setOnClickListener(v -> {
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainerView, new BookFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+
+        buttonDelete.setOnClickListener(v -> {
+            RequestQueue queue = Volley.newRequestQueue(getContext());
+            JSONObject bookObject;
+            try {
+                 bookObject = new JSONObject(bookInfo);
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            String url = null;
+            try {
+                url = AdresseURL + "books/" + bookObject.getString("id");
+            } catch (JSONException e) {
+                throw new RuntimeException(e);
+            }
+
+            StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, url,
+                    response -> {
+                        // Traitement de la réponse en cas de succès de la suppression
+                        Log.d("Delete Response", response);
+                    },
+                    error -> {
+                        // Gestion des erreurs
+                        Log.e("Delete Error", "Erreur lors de la suppression: " + error.toString());
+                    });
+
+            queue.add(deleteRequest);
+        });
 
         // Vérifier si des arguments ont été passés
         if (getArguments() != null) {
