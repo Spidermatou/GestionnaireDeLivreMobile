@@ -47,14 +47,10 @@
                 android:text="Author :"
                 android:textSize="24sp" />
 
-            <EditText
-                android:id="@+id/editTextAuthor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="name"
-                android:inputType="text"
-                android:textSize="24sp" />
+            <Spinner
+                android:id="@+id/spinnerAuthors"
+                android:layout_width="match_parent"
+                android:layout_height="48dp" />
 
         </TableRow>
 

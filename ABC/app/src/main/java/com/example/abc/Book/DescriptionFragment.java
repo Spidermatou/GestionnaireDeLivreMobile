@@ -13,6 +13,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.abc.R;
 import com.example.abc.databinding.FragmentHomeBinding;
 import com.example.abc.ui.home.HomeViewModel;
@@ -23,10 +26,10 @@ import org.json.JSONObject;
 
 public class DescriptionFragment extends Fragment {
     private static final String ARG_BOOK_INFO = "book_info";
+    private String AdresseURL = "http://192.168.10.52:3000/";
     private String bookInfo;
     private TextView textViewTitle;
     private TextView textViewAuthor;
-    private TextView textViewDescription;
     private TextView textViewTags;
     private TextView textViewRating;
     private TextView textViewComments;
@@ -57,7 +60,6 @@ public class DescriptionFragment extends Fragment {
 
         textViewTitle = view.findViewById(R.id.textViewTitle);
         textViewAuthor = view.findViewById(R.id.textViewAuthor);
-        textViewDescription = view.findViewById(R.id.textViewDesc);
         textViewTags = view.findViewById(R.id.textViewTags);
         textViewRating = view.findViewById(R.id.textViewNote);
         textViewComments = view.findViewById(R.id.textViewComms);
@@ -84,40 +86,101 @@ public class DescriptionFragment extends Fragment {
                     bookObject.getJSONObject("author").getString("lastname"));
             // Mettre à jour les autres TextViews de la même manière...
 
-            textViewDescription.setText(bookObject.getString("description"));
+            //textViewDescription.setText(bookObject.getString("description"));
 
-            JSONArray tagsArray = bookObject.getJSONArray("tags");
-            String tagsString = "";
 
-            for (int i = 0; i < tagsArray.length(); i++) {
-                // Ajouter un espace si c'est le deuxième tag ou plus
-                if (i > 0) {
-                    tagsString += " ";
+            RequestQueue queue = Volley.newRequestQueue(getContext());
+            String url = AdresseURL + "books/" + bookObject.getString("id")+"/tags";
+            System.out.println(url);
+            final StringBuilder tagsStringBuilder = new StringBuilder();
+            JsonArrayRequest request = new JsonArrayRequest(url, response -> {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject tagObject = response.getJSONObject(i);
+                        String tagName = tagObject.getString("name");
+
+                        // Ajouter un espace si c'est le deuxième tag ou plus
+                        if (i > 0) {
+                            tagsStringBuilder.append(" ");
+                        }
+                        tagsStringBuilder.append(tagName);
+                    }
+
+                    // Une fois que tous les tags ont été ajoutés, mettre à jour le TextView
+                    textViewTags.setText(tagsStringBuilder.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                tagsString += tagsArray.getString(i);
-            }
+            }, error -> {
+                System.out.println("Erreur lors de la récupération des tags");
+            });
+            queue.add(request);
+            textViewTags.setText(tagsStringBuilder.toString());
 
-            textViewTags.setText(tagsString);
 
-            textViewRating.setText(bookObject.getString("rating"));
+            String urlRating = AdresseURL + "books/" + bookObject.getString("id")+"/ratings";
 
-            JSONArray commentsArray = bookObject.getJSONArray("comments");
-            String commentsString = "";
+            final StringBuilder ratingStringBuilder = new StringBuilder();
+            JsonArrayRequest requestRating = new JsonArrayRequest(urlRating, response -> {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject ratingObject = response.getJSONObject(i);
+                        String rating = ratingObject.getString("value");
 
-            for (int i = 0; i < commentsArray.length(); i++) {
-                // Ajouter un espace si c'est le deuxième commentaire ou plus
-                if (i > 0) {
-                    commentsString += " ";
+                        // Ajouter un espace si c'est le deuxième tag ou plus
+                        if (i > 0) {
+                            ratingStringBuilder.append(" / ");
+                        }
+                        ratingStringBuilder.append(rating);
+                    }
+
+                    // Une fois que tous les tags ont été ajoutés, mettre à jour le TextView
+                    textViewRating.setText(ratingStringBuilder.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                commentsString += commentsArray.getString(i);
-            }
+            }, error -> {
+                System.out.println("Erreur lors de la récupération des tags");
+            });
 
-            textViewComments.setText(commentsString);
+            queue.add(requestRating);
 
+            textViewRating.setText(ratingStringBuilder.toString());
+
+            String urlComments = AdresseURL + "books/" + bookObject.getString("id")+"/comments";
+
+            final StringBuilder commentsStringBuilder = new StringBuilder();
+            JsonArrayRequest requestComments = new JsonArrayRequest(urlComments, response -> {
+                try {
+                    for (int i = 0; i < response.length(); i++) {
+                        JSONObject commentObject = response.getJSONObject(i);
+                        String comment = commentObject.getString("content");
+
+                        // Ajouter un espace si c'est le deuxième tag ou plus
+                        if (i > 0) {
+                            commentsStringBuilder.append("\n");
+                        }
+                        commentsStringBuilder.append(comment);
+                    }
+
+                    // Une fois que tous les tags ont été ajoutés, mettre à jour le TextView
+                    textViewComments.setText(commentsStringBuilder.toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }, error -> {
+                System.out.println("Erreur lors de la récupération des tags");
+            });
+
+            queue.add(requestComments);
+
+            textViewComments.setText(commentsStringBuilder.toString());
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
+
+
     }
 
     @Override

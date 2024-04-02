@@ -9,6 +9,9 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.abc.Book.DescriptionFragment;
 import com.example.abc.R;
 
@@ -18,7 +21,7 @@ import org.json.JSONObject;
 
 public class AuthorDescription extends Fragment {
     private static final String ARG_AUTHOR_INFO = "author_info";
-
+    private String AdresseURL = "http://192.168.10.52:3000/";
     private String authorInfo;
     private String authorName;
     private TextView textViewAuthorName;
@@ -67,9 +70,32 @@ public class AuthorDescription extends Fragment {
         // Extraire les informations du livre depuis bookInfo (peut-être au format JSON)
         // et mettre à jour les TextViews avec ces informations
         try {
-            JSONObject bookObject = new JSONObject(authorInfo);
-            textViewAuthorName.setText(bookObject.getString("firstname") + " " +
-                    bookObject.getString("lastname"));
+            JSONObject authorObject = new JSONObject(authorInfo);
+            textViewAuthorName.setText(authorObject.getString("firstname") + " " +
+                    authorObject.getString("lastname"));
+
+            RequestQueue queue = Volley.newRequestQueue(getContext());
+            String url = AdresseURL + "authors/" + authorObject.getString("id") + "/books";
+            final StringBuilder bookList = new StringBuilder();
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, response -> {
+                for (int i = 0; i < response.length(); i++) {
+                    try {
+                        JSONObject book = response.getJSONObject(i);
+                        bookList.append(book.getString("title")).append("\n");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+                System.out.println(bookList.toString());
+                textViewBookList.setText(bookList.toString());
+            }, error -> {
+                // Gérer l'erreur ici
+                //Afficher l'erreur
+                System.out.println(error.getMessage());
+            });
+
+            queue.add(jsonArrayRequest);
+
 
 
         } catch (JSONException e) {

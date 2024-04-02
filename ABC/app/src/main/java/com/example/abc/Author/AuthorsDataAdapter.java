@@ -53,7 +53,7 @@ public class AuthorsDataAdapter extends RecyclerView.Adapter {
                 // retrieve name
                 lastname = authorsData.getJSONObject(position).getString("lastname");
                 firstname = authorsData.getJSONObject(position).getString("firstname");
-                ((AuthorViewHolder) holder).getauthorName().setText(lastname + " " + firstname);
+                ((AuthorViewHolder) holder).getauthorName().setText(firstname + " " + lastname);
             } catch (JSONException e) {
                 throw new RuntimeException(e);
             }
