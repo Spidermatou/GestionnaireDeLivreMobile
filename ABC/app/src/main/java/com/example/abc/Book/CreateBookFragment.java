@@ -21,6 +21,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.abc.Author.Author;
@@ -129,6 +130,28 @@ public class CreateBookFragment extends Fragment {
 
     public void CreateABook(String title, Integer author) {
         // Create a new book
+        String URL = AdresseURL + "authors/" +author+ "/books";
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("title", title);
+            jsonParams.put("authorId", author);
+            // Ajoutez d'autres paramètres si nécessaire
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonParams,
+                response -> {
+                    // Réponse de la requête POST
+                    Log.d("Response", response.toString());
+                },
+                error -> {
+                    // Gestion des erreurs
+                    Log.e("Error", "Erreur lors de la requête POST: " + error.toString());
+                });
+
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        requestQueue.add(jsonObjectRequest);
 
 
     }

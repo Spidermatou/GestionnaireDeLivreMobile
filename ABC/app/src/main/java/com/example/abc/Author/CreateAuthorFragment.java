@@ -14,11 +14,15 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.abc.R;
 import com.example.abc.ui.dashboard.DashboardFragment;
 import com.example.abc.ui.home.HomeFragment;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -78,26 +82,26 @@ public class CreateAuthorFragment extends Fragment {
         // Create a new author
         String URL = "http://192.168.10.52:3000/authors";
 
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL,
+        JSONObject jsonParams = new JSONObject();
+        try {
+            jsonParams.put("firstname", firstName);
+            jsonParams.put("lastname", lastName);
+            // Ajoutez d'autres paramètres si nécessaire
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.POST, URL, jsonParams,
                 response -> {
                     // Réponse de la requête POST
-                    Log.d("Response", response);
+                    Log.d("Response", response.toString());
                 },
                 error -> {
                     // Gestion des erreurs
                     Log.e("Error", "Erreur lors de la requête POST: " + error.toString());
-                }) {
-            @Override
-            protected Map<String, String> getParams() {
-                // Paramètres à envoyer dans la requête POST
-                Map<String, String> params = new HashMap<>();
-                params.put("firstname", firstName);
-                params.put("lastname", lastName);
-                // Ajoutez d'autres paramètres si nécessaire
-                return params;
-            }
-        };
+                });
+
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        requestQueue.add(stringRequest);
+        requestQueue.add(jsonObjectRequest);
     }
 }

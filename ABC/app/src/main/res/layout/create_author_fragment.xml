@@ -62,6 +62,7 @@
                 android:id="@+id/buttonBack"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:text="Retour"
                 android:textSize="24sp" />
 
@@ -70,6 +71,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
+                android:layout_marginEnd="60dp"
                 android:text="Créer"
                 android:textSize="24sp" />
         </TableRow>

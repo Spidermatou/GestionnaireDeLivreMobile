@@ -20,9 +20,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="com.example.abc.Book.BookFragment"
-        android:layout_width="349dp"
-        android:layout_height="528dp"
-        android:layout_marginStart="29dp"
+        android:layout_width="412dp"
+        android:layout_height="527dp"
         android:layout_marginBottom="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -3,18 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
+    android:label="Bibliotheque"
     app:startDestination="@+id/navigation_home">
 
     <fragment
         android:id="@+id/navigation_home"
         android:name="com.example.abc.ui.home.HomeFragment"
-        android:label="@string/title_home"
+        android:label="@string/bibliotheque"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/navigation_dashboard"
         android:name="com.example.abc.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/auteur"
         tools:layout="@layout/fragment_dashboard" />
 
 </navigation>

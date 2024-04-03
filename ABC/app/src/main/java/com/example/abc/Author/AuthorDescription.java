@@ -2,16 +2,23 @@ package com.example.abc.Author;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.abc.Book.BookFragment;
 import com.example.abc.Book.DescriptionFragment;
 import com.example.abc.R;
 
@@ -26,6 +33,8 @@ public class AuthorDescription extends Fragment {
     private String authorName;
     private TextView textViewAuthorName;
     private TextView textViewBookList;
+    private Button buttonBacktoAuthors;
+    private Button buttonDeleteAuthor;
 
     public static AuthorDescription newInstance(String authorinfo) {
         AuthorDescription fragment = new AuthorDescription();
@@ -53,7 +62,48 @@ public class AuthorDescription extends Fragment {
 
         textViewAuthorName = view.findViewById(R.id.textViewAuthorName);
         textViewBookList = view.findViewById(R.id.textViewBookListOfAuthor);
+        buttonBacktoAuthors = view.findViewById(R.id.buttonBacktoAuthors);
+        buttonDeleteAuthor = view.findViewById(R.id.buttonDeleteAuthor);
 
+        buttonBacktoAuthors.setOnClickListener(v -> {
+            // Retourner à la liste des auteurs
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace( R.id.fragmentContainerViewAuthor, new AuthorsListFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
+
+        buttonDeleteAuthor.setOnClickListener(v -> {
+            // Supprimer l'auteur
+            try {
+                JSONObject authorObject = new JSONObject(authorInfo);
+                RequestQueue queue = Volley.newRequestQueue(getContext());
+                String url = AdresseURL + "authors/" + authorObject.getString("id");
+                JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
+                        response -> {
+                            // Supprimer l'auteur de la liste des auteurs
+                            Log.d("Delete Response", response.toString());
+                        }, error -> {
+                    // Gérer l'erreur ici
+                    //Afficher l'erreur
+                    System.out.println(error.getMessage());
+                });
+
+                queue.add(jsonObjectRequest);
+
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+            fragmentTransaction.replace( R.id.fragmentContainerViewAuthor, new AuthorsListFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+        });
         // Vérifier si des arguments ont été passés
         if (getArguments() != null) {
             // Récupérer les informations sur le livre

@@ -18,6 +18,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.abc.R;
@@ -97,10 +98,10 @@ public class DescriptionFragment extends Fragment {
                 throw new RuntimeException(e);
             }
 
-            StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, url,
+            JsonObjectRequest deleteRequest = new JsonObjectRequest(Request.Method.DELETE, url, null,
                     response -> {
                         // Traitement de la réponse en cas de succès de la suppression
-                        Log.d("Delete Response", response);
+                        Log.d("Delete Response", response.toString());
                     },
                     error -> {
                         // Gestion des erreurs
@@ -108,6 +109,12 @@ public class DescriptionFragment extends Fragment {
                     });
 
             queue.add(deleteRequest);
+            FragmentManager fragmentManager = getParentFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragmentContainerView, new BookFragment());
+            fragmentTransaction.addToBackStack(null);
+            fragmentTransaction.commit();
+
         });
 
         // Vérifier si des arguments ont été passés

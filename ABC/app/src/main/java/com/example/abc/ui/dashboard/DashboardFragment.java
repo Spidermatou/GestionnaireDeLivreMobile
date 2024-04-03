@@ -13,6 +13,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.abc.Author.AuthorsListFragment;
+import com.example.abc.Author.CreateAuthorFragment;
 import com.example.abc.Book.BookFragment;
 import com.example.abc.Book.CreateBookFragment;
 import com.example.abc.R;
@@ -43,7 +44,7 @@ public class DashboardFragment extends Fragment {
             public void onClick(View view) {
                 FragmentManager fragmentManager = getChildFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                fragmentTransaction.replace(R.id.fragmentContainerViewAuthor, new CreateBookFragment());
+                fragmentTransaction.replace(R.id.fragmentContainerViewAuthor, new CreateAuthorFragment());
                 fragmentTransaction.addToBackStack(null);
                 fragmentTransaction.commit();
             }

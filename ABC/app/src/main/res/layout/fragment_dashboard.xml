@@ -20,11 +20,11 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerViewAuthor"
         android:name="com.example.abc.Author.AuthorsListFragment"
-        android:layout_width="360dp"
-        android:layout_height="531dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginBottom="32dp"
+        android:layout_width="393dp"
+        android:layout_height="548dp"
+        android:layout_marginBottom="28dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
