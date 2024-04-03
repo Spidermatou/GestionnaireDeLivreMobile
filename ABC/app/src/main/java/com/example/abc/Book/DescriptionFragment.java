@@ -21,6 +21,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.abc.Author.AuthorDescription;
 import com.example.abc.R;
 import com.example.abc.databinding.FragmentHomeBinding;
 import com.example.abc.ui.home.HomeFragment;
@@ -137,9 +138,6 @@ public class DescriptionFragment extends Fragment {
             textViewTitle.setText(bookObject.getString("title"));
             textViewAuthor.setText(bookObject.getJSONObject("author").getString("firstname") + " " +
                     bookObject.getJSONObject("author").getString("lastname"));
-            // Mettre à jour les autres TextViews de la même manière...
-
-            //textViewDescription.setText(bookObject.getString("description"));
 
 
             RequestQueue queue = Volley.newRequestQueue(getContext());
