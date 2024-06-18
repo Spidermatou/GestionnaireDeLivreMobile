@@ -1,7 +1,7 @@
 Projet ABC - Android Books Client
 =================================
 
-L'objectif de ce projet est de réaliser un client mobile pour l'API Books développée dans le module W41, dont [une correction minimale est disponible ici](https://git.unistra.fr/w412/w41/-/tree/main/correction).
+L'objectif de ce projet est de réaliser un client mobile pour l'API Books développée dans le cadre d'un autre module de la formation. Cette API permet de gérer une bibliothèque.
 
 Fonctionnalités
 ---------------
